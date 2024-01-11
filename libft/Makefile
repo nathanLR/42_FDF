@@ -6,12 +6,12 @@
 #    By: nle-roux <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/03 11:33:52 by nle-roux          #+#    #+#              #
-#    Updated: 2023/12/11 11:07:39 by nle-roux         ###   ########.fr        #
+#    Updated: 2024/01/11 16:59:17 by nle-roux         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CC		=	cc
-CFLAGS	=	-Wall -Wextra -Werror -g
+CC		=	clang
+CFLAGS	=	-Wall -Wextra -Werror -gdwarf-4
 NAME	=	libft.a
 
 # -- files -- #
