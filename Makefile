@@ -6,18 +6,19 @@
 #    By: nle-roux <nle-roux@student.42angouleme.fr  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/11 11:24:05 by nle-roux          #+#    #+#              #
-#    Updated: 2024/01/11 18:51:41 by nle-roux         ###   ########.fr        #
+#    Updated: 2024/01/12 18:03:10 by nle-roux         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC		= clang
-CFLAGS	= -Wall -Wextra -Werror -gdwarf-4
+CFLAGS	= -Wall -Wextra -Werror -gdwarf-4 -I$(INCLUDE)
 NAME	= fdf
+INCLUDE	= includes/
 
 # -- files -- #
 SRCS_DIR = srcs/
 
-SRCS	= main.c fdf.c ft_check_map.c
+SRCS	= main.c utils.c ft_manage_error.c ft_check_map.c
 
 FILES	= $(addprefix $(SRCS_DIR), $(SRCS))
 
@@ -25,11 +26,17 @@ OBJS	= $(FILES:.c=.o)
 # --rules -- #
 
 %.o: %.c
-	$(CC) $(CFLAGS) -I/usr/include -Imlx_linux -O3 -c $< -o $@
+	@echo "Compiling source files..."
+	@$(CC) $(CFLAGS) -I/usr/include -Imlx_linux -O3 -c $< -o $@
+	@echo "Done."
 
 $(NAME): $(OBJS)
-	make -C libft
-	$(CC) $(OBJS) -L./libft -lft -L./mlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
+	@echo "Compiling Libft files..."
+	@make -C libft
+	@echo "Done."
+	@echo "Linking files..."
+	@$(CC) $(OBJS) -L./libft -lft -L./mlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
+	@echo "Done."
 
 #$(NAME): $(OBJS)
 #	make -C libft
@@ -38,12 +45,20 @@ $(NAME): $(OBJS)
 all: $(NAME)
 
 clean:
-	make -C libft clean
-	rm -f $(OBJS)
+	@echo "Cleaning Libft..."
+	@make -C libft clean
+	@echo "Done."
+	@echo "Removing object files..."
+	@rm -f $(OBJS)
+	@echo "Done."
 
 fclean:
-	make -C libft fclean
-	rm -f $(OBJS) $(NAME)
+	@echo "Full cleaning Libft..."
+	@make -C libft fclean
+	@echo "Done."
+	@echo "Removing object files and executable..."
+	@rm -f $(OBJS) $(NAME)
+	@echo "Done."
 
 re: fclean all
 

@@ -6,12 +6,12 @@
 /*   By: nle-roux <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/03 17:56:48 by nle-roux          #+#    #+#             */
-/*   Updated: 2023/12/04 16:14:06 by nle-roux         ###   ########.fr       */
+/*   Updated: 2024/01/12 19:08:49 by nle-roux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
 
-size_t	ft_tablen(const char **tab)
+size_t	ft_tablen(char **tab)
 {
 	size_t	length;
 

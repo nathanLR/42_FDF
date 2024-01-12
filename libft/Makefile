@@ -6,7 +6,7 @@
 #    By: nle-roux <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/03 11:33:52 by nle-roux          #+#    #+#              #
-#    Updated: 2024/01/11 16:59:17 by nle-roux         ###   ########.fr        #
+#    Updated: 2024/01/12 18:02:23 by nle-roux         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,21 +44,23 @@ OBJS	=	$(SRCS:.c=.o)
 BOBJS	=	$(BSRCS:.c=.o)
 
 # -- rules -- #
+%.o: %.c
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 $(NAME) : $(OBJS)
-	ar -rsc $(NAME) $(OBJS)
+	@ar -rsc $(NAME) $(OBJS)
 
 all		: $(NAME)
 
 clean	:
-	rm -rf $(OBJS) $(BOBJS)
+	@rm -rf $(OBJS) $(BOBJS)
 
 fclean	: clean
-	rm -f $(NAME)
+	@rm -f $(NAME)
 
 re		: fclean all
 
 bonus	: $(OBJS) $(BOBJS) libft.h
-	ar -rsc $(NAME) $(OBJS) $(BOBJS)
+	@ar -rsc $(NAME) $(OBJS) $(BOBJS)
 
 .PHONY	: all clean fclean re bonus

@@ -1,23 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   consts.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nle-roux <nle-roux@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/11 12:03:54 by nle-roux          #+#    #+#             */
-/*   Updated: 2024/01/12 18:18:42 by nle-roux         ###   ########.fr       */
+/*   Created: 2024/01/12 15:17:24 by nle-roux          #+#    #+#             */
+/*   Updated: 2024/01/12 15:22:30 by nle-roux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../libft/libft.h"
-#include <fdf.h>
-#include <errno.h>
-#include <stdio.h>
-#include <stdlib.h>
 
-int	main(int argc, char **argv)
-{
-	if (argc != 2)
-		ft_manage_error("Usage: ./fdf [path_to_file].fdf", U_ERROR, NULL);
-	ft_check_map(argv[1]);
-}
+#ifndef CONST_H
+# define CONST_H
+# define TRUE 1
+# define FALSE 0
+# define WIDTH 1080
+# define HEIGHT 720
+# define U_ERROR 1
+# define P_ERROR 2
+# define KEY_LEFT 123
+# define KEY_RIGHT 124
+# define KEY_DOWN 125
+# define KEY_UP 126
+# define KEY_ESC 53
+# define MOUSE_LEFT 1
+# define MOUSE_RIGHT 2
+# define MOUSE_UP 4
+# define MOUSE_DOWN 5
+
+typedef unsigned int	t_bool;
+#endif
+

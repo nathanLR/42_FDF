@@ -6,7 +6,7 @@
 /*   By: nle-roux <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 13:01:07 by nle-roux          #+#    #+#             */
-/*   Updated: 2023/12/11 11:07:20 by nle-roux         ###   ########.fr       */
+/*   Updated: 2024/01/12 19:08:37 by nle-roux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,10 +162,10 @@ size_t	ft_strlen(const char *s);
 /**
 *	This function takes an array as a parameter and returns its length.
 *
-*	@param		const char **tab	The array we want to retrieve the length from.
-*	@return		size_t				The length of the array.
+*	@param		char **tab		The array we want to retrieve the length from.
+*	@return		size_t			The length of the array.
 */
-size_t	ft_tablen(const char **tab);
+size_t	ft_tablen(char **tab);
 
 /**
 *	This functions sets n bytes in s with c.

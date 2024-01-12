@@ -1,23 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nle-roux <nle-roux@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/11 12:03:54 by nle-roux          #+#    #+#             */
-/*   Updated: 2024/01/12 18:18:42 by nle-roux         ###   ########.fr       */
+/*   Created: 2024/01/12 17:36:00 by nle-roux          #+#    #+#             */
+/*   Updated: 2024/01/12 19:36:41 by nle-roux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../libft/libft.h"
-#include <fdf.h>
-#include <errno.h>
-#include <stdio.h>
-#include <stdlib.h>
 
-int	main(int argc, char **argv)
+#include <fdf.h>
+#include <stdlib.h>
+#include <mlx.h>
+
+void	ft_destroy_data(t_data *data)
 {
-	if (argc != 2)
-		ft_manage_error("Usage: ./fdf [path_to_file].fdf", U_ERROR, NULL);
-	ft_check_map(argv[1]);
+	if (data->win != NULL)
+		mlx_destroy_window(data->mlx, data->win);
+	if (data->mlx != NULL)
+	{
+		mlx_destroy_display(data->mlx);
+		free(data->mlx);
+	}
+}
+
+void	ft_free_tab(char **tab)
+{
+	char	**tmp;
+
+	tmp = tab;
+	while (*tmp)
+		free(*tmp++);
+	free(tab);
 }
