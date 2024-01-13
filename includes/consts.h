@@ -6,12 +6,12 @@
 /*   By: nle-roux <nle-roux@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 15:17:24 by nle-roux          #+#    #+#             */
-/*   Updated: 2024/01/12 15:22:30 by nle-roux         ###   ########.fr       */
+/*   Updated: 2024/01/13 16:28:14 by nle-roux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CONST_H
-# define CONST_H
+#ifndef CONSTS_H
+# define CONSTS_H
 # define TRUE 1
 # define FALSE 0
 # define WIDTH 1080
@@ -22,7 +22,7 @@
 # define KEY_RIGHT 124
 # define KEY_DOWN 125
 # define KEY_UP 126
-# define KEY_ESC 53
+# define KEY_ESC 65307
 # define MOUSE_LEFT 1
 # define MOUSE_RIGHT 2
 # define MOUSE_UP 4
@@ -30,4 +30,3 @@
 
 typedef unsigned int	t_bool;
 #endif
-

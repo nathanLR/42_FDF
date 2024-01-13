@@ -6,7 +6,7 @@
 #    By: nle-roux <nle-roux@student.42angouleme.fr  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/11 11:24:05 by nle-roux          #+#    #+#              #
-#    Updated: 2024/01/12 18:03:10 by nle-roux         ###   ########.fr        #
+#    Updated: 2024/01/13 15:57:41 by nle-roux         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ INCLUDE	= includes/
 # -- files -- #
 SRCS_DIR = srcs/
 
-SRCS	= main.c utils.c ft_manage_error.c ft_check_map.c
+SRCS	= main.c utils_data.c utils_file.c ft_manage_error.c hooks.c ft_check_map.c
 
 FILES	= $(addprefix $(SRCS_DIR), $(SRCS))
 
