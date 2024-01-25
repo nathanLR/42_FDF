@@ -6,7 +6,7 @@
 /*   By: nle-roux <nle-roux@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 17:36:00 by nle-roux          #+#    #+#             */
-/*   Updated: 2024/01/13 17:38:27 by nle-roux         ###   ########.fr       */
+/*   Updated: 2024/01/22 18:00:18 by nle-roux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 #include <fcntl.h>
 #include <stdlib.h>
 #include <mlx.h>
+#include <math.h>
+
+#include <stdio.h>
 
 static void	ft_fill_points(char *filename, t_data *data);
 
@@ -30,18 +33,33 @@ void	ft_destroy_data(t_data *data)
 		ft_free_tab((void **)data->mesh->points);
 	if (data->mesh != NULL)
 		free(data->mesh);
+	if (data->mlx_img != NULL && data->mlx_img->img != NULL)
+		free(data->mlx_img->img);
+	if (data->mlx_img != NULL)
+		free(data->mlx_img);
+	if (data->mouse != NULL)
+		free(data->mouse);
+	if (data->cam != NULL)
+		free(data->cam);
+	if (data->p_mat != NULL)
+		free(data->p_mat);
 	free(data->mlx);
 	free(data);
 }
 
-void	ft_free_tab(void **tab)
+void	ft_init_mlx_img(t_data *data)
 {
-	char	**tmp;
-	
-	tmp = (char **)tab;
-	while (*tmp)
-		free(*tmp++);
-	free(tab);
+	t_mlx_img	*mlx_img;
+
+	mlx_img = (t_mlx_img *)malloc(sizeof(t_mlx_img) * 1);
+	if (mlx_img == NULL)
+		ft_manage_error(NULL, P_ERROR, data);
+	data->mlx_img = mlx_img;
+	mlx_img->img = mlx_new_image(data->mlx, WIDTH, HEIGHT);
+	if (mlx_img->img == NULL)
+		ft_manage_error(NULL, P_ERROR, data);
+	mlx_img->addr = mlx_get_data_addr(mlx_img->img, &mlx_img->bpp,
+		&mlx_img->line_length, &mlx_img->endian);
 }
 
 t_data	*ft_init_data(char *filename)
@@ -60,7 +78,16 @@ t_data	*ft_init_data(char *filename)
 	data->win = mlx_new_window(data->mlx, WIDTH, HEIGHT, data->title);
 	if (data->win == NULL)
 		ft_manage_error(NULL, P_ERROR, data);
+	data->mouse = (t_mouse *)malloc(sizeof(t_mouse) * 1);
+	if (data->mouse == NULL)
+		ft_manage_error(NULL, P_ERROR, data);
+	data->mouse->mouse_down = FALSE;
+	data->mouse->prev_x = 0;
+	data->mouse->prev_y = 0;
 	data->mesh = NULL;
+	data->mlx_img = NULL;
+	data->cam = NULL;
+	data->p_mat = NULL;
 	return (data);
 }
 
@@ -86,6 +113,71 @@ void	ft_init_mesh(char *filename, t_data *data)
 	mesh->width = width;
 	mesh->points = points;
 	ft_fill_points(filename, data);
+}
+
+void	ft_init_cam(t_data *data)
+{
+	t_camera	*cam;
+
+	cam = (t_camera *)malloc(sizeof(t_camera) * 1);
+	if (cam == NULL)
+		ft_manage_error(NULL, P_ERROR, data);
+	data->cam = cam;
+	cam->ar = (float)WIDTH / (float)HEIGHT;
+	cam->fov = 90.0;
+	cam->znear = 0.1;
+	cam->zfar = 1000.0;
+	cam->fovrad = 1.0 / tanf((cam->fov * 0.5) / (180.0 * M_PI));
+}
+
+/*static void	ft_fill_mat(t_mat4x4 *m)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (i < 4)
+	{
+		while (j < 4)
+		{
+			m->mat[i][j] = 0;
+			j++;
+		}
+		i++;
+		j = 0;
+	}
+}*/
+
+void	ft_init_projection(t_data *data)
+{
+	t_mat4x4	*mat;
+
+	mat = (t_mat4x4 *)malloc(sizeof(t_mat4x4) * 1);
+	if (mat == NULL)
+		ft_manage_error(NULL, P_ERROR, data);
+	data->p_mat = mat;
+	mat->mat[0][0] = 0.0, mat->mat[0][1] = 0.0, mat->mat[0][2] = 0.0, mat->mat[0][3] = 0.0;
+	mat->mat[1][0] = 0.0, mat->mat[1][1] = 0.0, mat->mat[1][2] = 0.0, mat->mat[1][3] = 0.0;
+	mat->mat[2][0] = 0.0, mat->mat[2][1] = 0.0, mat->mat[2][2] = 0.0, mat->mat[2][3] = 0.0;
+	mat->mat[3][0] = 0.0, mat->mat[3][1] = 0.0, mat->mat[3][2] = 0.0, mat->mat[3][3] = 0.0;
+	mat->mat[0][0] = data->cam->ar * data->cam->fovrad;
+	mat->mat[1][1] = data->cam->fovrad;
+	mat->mat[2][2] = data->cam->zfar / (data->cam->zfar - data->cam->znear);
+	mat->mat[3][2] = (-data->cam->zfar * data->cam->znear) / (data->cam->zfar - data->cam->znear);
+	mat->mat[2][3] = 1.0;
+	int i = 0, j = 0;
+	while (i < 4)
+	{
+		while (j < 4)
+		{
+			printf("%.2f ", mat->mat[i][j]);
+			j++;
+		}
+		j = 0;
+		i++;
+		printf("\n");
+	}
 }
 
 static void	ft_fill_points(char *filename, t_data *data)
@@ -116,9 +208,9 @@ static void	ft_fill_points(char *filename, t_data *data)
 			data->mesh->points[i] = (t_vec3d *)malloc(sizeof(t_vec3d) * 1);
 			if (data->mesh->points[i] == NULL && close(fd) == 0)
 				ft_manage_error(NULL, P_ERROR, data);
-			data->mesh->points[i]->x = col;
-			data->mesh->points[i]->y = row;
-			data->mesh->points[i]->z = ft_atoi(*line_content++);
+			data->mesh->points[i]->x = col * 10;
+			data->mesh->points[i]->z = row * 10;
+			data->mesh->points[i]->y = ft_atoi(*line_content++) * 10;
 			col++;
 			//data->mesh->points++;
 			i++;

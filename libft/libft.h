@@ -6,7 +6,7 @@
 /*   By: nle-roux <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 13:01:07 by nle-roux          #+#    #+#             */
-/*   Updated: 2024/01/12 19:08:37 by nle-roux         ###   ########.fr       */
+/*   Updated: 2024/01/13 18:34:55 by nle-roux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -445,6 +445,13 @@ size_t	ft_putnbr_base_fd(size_t n, char *base, size_t size, int fd);
 *	@return		size_t			Numbers of characteres printed.
 */
 size_t	ft_putptr_fd(void *ptr, int fd);
+
+/**
+*	Utility function used to free array of data.
+*
+*	@param		void **tab		The array to be freed
+*/
+void	ft_free_tab(void **tab);
 
 /**
 *	==================== LINKED LIST ====================

@@ -6,7 +6,7 @@
 /*   By: nle-roux <nle-roux@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 15:27:46 by nle-roux          #+#    #+#             */
-/*   Updated: 2024/01/12 19:37:52 by nle-roux         ###   ########.fr       */
+/*   Updated: 2024/01/13 18:41:07 by nle-roux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../libft/libft.h"
@@ -72,7 +72,7 @@ static void	ft_check_content(int fd)
 		if (line_len == 0)
 			line_len = ft_tablen(line_content);
 		next_line_len = ft_tablen(line_content);
-		ft_free_tab(line_content);
+		ft_free_tab((void **)line_content);
 		free(line);
 		if (line_len != next_line_len)
 			ft_clean_exit(fd, "Map format incorrect.", U_ERROR);

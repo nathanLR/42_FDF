@@ -6,7 +6,7 @@
 #    By: nle-roux <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/03 11:33:52 by nle-roux          #+#    #+#              #
-#    Updated: 2024/01/12 18:02:23 by nle-roux         ###   ########.fr        #
+#    Updated: 2024/01/13 18:32:36 by nle-roux         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,7 @@ SRCS	=	\
 			get_next_line_utilities.c		get_next_line.c\
 			get_next_line_multiple.c		ft_atol.c	 \
 			ft_strcmp.c		ft_tablen.c		ft_abs.c	 \
+			ft_free_tab.c \
 
 BSRCS	=	\
 			ft_lstnew.c		ft_lstadd_front.c	ft_lstsize.c \

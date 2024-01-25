@@ -1,26 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_manage_error.c                                  :+:      :+:    :+:   */
+/*   ft_free_tab.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nle-roux <nle-roux@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/12 17:21:12 by nle-roux          #+#    #+#             */
-/*   Updated: 2024/01/16 22:24:16 by nle-roux         ###   ########.fr       */
+/*   Created: 2024/01/13 18:31:53 by nle-roux          #+#    #+#             */
+/*   Updated: 2024/01/13 18:32:14 by nle-roux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "libft.h"
 
-#include "../libft/libft.h"
-#include <fdf.h>
-#include <stdio.h>
-
-void	ft_manage_error(char *e_message, unsigned int e_type, t_data *destroy)
+void	ft_free_tab(void **tab)
 {
-	if (destroy != NULL)
-		ft_destroy_data(destroy);
-	if (e_type == U_ERROR)
-		ft_putendl_fd(e_message, STDERR_FILENO);
-	else
-		perror("Error");
-	exit(EXIT_FAILURE);
+	char	**tmp;
+	
+	tmp = (char **)tab;
+	while (*tmp)
+		free(*tmp++);
+	free(tab);
 }
