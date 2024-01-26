@@ -6,7 +6,7 @@
 #    By: nle-roux <nle-roux@student.42angouleme.fr  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/11 11:24:05 by nle-roux          #+#    #+#              #
-#    Updated: 2024/01/22 18:20:46 by nle-roux         ###   ########.fr        #
+#    Updated: 2024/01/26 08:42:02 by nle-roux         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,19 +37,21 @@ $(NAME): $(OBJS)
 	@echo "Compiling Libft files..."
 	@make -C libft
 	@echo "Done."
+	@echo "Compiling mlx lib..."
+	@make -C mlx_linux
+	@echo "Done."
 	@echo "Linking files..."
 	@$(CC) $(OBJS) -L./libft -lft -L./mlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
 	@echo "Done."
-
-#$(NAME): $(OBJS)
-#	make -C libft
-#	$(CC) $(CFLAGS) -o $(NAME) $(FILES) ./MacroLibX/libmlx.so -L./libft -lft -lSDL2
 
 all: $(NAME)
 
 clean:
 	@echo "Cleaning Libft..."
 	@make -C libft clean
+	@echo "Done."
+	@echo "Cleaning mlx..."
+	@make -C mlx_linux clean
 	@echo "Done."
 	@echo "Removing object files..."
 	@rm -f $(OBJS)
@@ -58,6 +60,9 @@ clean:
 fclean:
 	@echo "Full cleaning Libft..."
 	@make -C libft fclean
+	@echo "Done."
+	@echo "Cleaning mlx..."
+	@make -C mlx_linux clean
 	@echo "Done."
 	@echo "Removing object files and executable..."
 	@rm -f $(OBJS) $(NAME)
