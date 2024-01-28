@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_data.c                                       :+:      :+:    :+:   */
+/*   data_utilities.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nle-roux <nle-roux@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 17:36:00 by nle-roux          #+#    #+#             */
-/*   Updated: 2024/01/22 18:00:18 by nle-roux         ###   ########.fr       */
+/*   Updated: 2024/01/28 11:04:34 by nle-roux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,40 +115,6 @@ void	ft_init_mesh(char *filename, t_data *data)
 	ft_fill_points(filename, data);
 }
 
-void	ft_init_cam(t_data *data)
-{
-	t_camera	*cam;
-
-	cam = (t_camera *)malloc(sizeof(t_camera) * 1);
-	if (cam == NULL)
-		ft_manage_error(NULL, P_ERROR, data);
-	data->cam = cam;
-	cam->ar = (float)WIDTH / (float)HEIGHT;
-	cam->fov = 90.0;
-	cam->znear = 0.1;
-	cam->zfar = 1000.0;
-	cam->fovrad = 1.0 / tanf((cam->fov * 0.5) / (180.0 * M_PI));
-}
-
-/*static void	ft_fill_mat(t_mat4x4 *m)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
-	while (i < 4)
-	{
-		while (j < 4)
-		{
-			m->mat[i][j] = 0;
-			j++;
-		}
-		i++;
-		j = 0;
-	}
-}*/
-
 void	ft_init_projection(t_data *data)
 {
 	t_mat4x4	*mat;
@@ -208,11 +174,14 @@ static void	ft_fill_points(char *filename, t_data *data)
 			data->mesh->points[i] = (t_vec3d *)malloc(sizeof(t_vec3d) * 1);
 			if (data->mesh->points[i] == NULL && close(fd) == 0)
 				ft_manage_error(NULL, P_ERROR, data);
-			data->mesh->points[i]->x = col * 10;
-			data->mesh->points[i]->z = row * 10;
-			data->mesh->points[i]->y = ft_atoi(*line_content++) * 10;
+			data->mesh->points[i]->x = col;
+			data->mesh->points[i]->y = row;
+			data->mesh->points[i]->z = ft_atoi(*line_content++);
+			if (data->mesh->points[i]->z > 0.0f)
+				data->mesh->points[i]->color = 0xffff0000;
+			else
+				data->mesh->points[i]->color = 0xffffffff;
 			col++;
-			//data->mesh->points++;
 			i++;
 		}
 		ft_free_tab((void **)(line_content - data->mesh->width));

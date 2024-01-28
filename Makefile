@@ -6,7 +6,7 @@
 #    By: nle-roux <nle-roux@student.42angouleme.fr  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/11 11:24:05 by nle-roux          #+#    #+#              #
-#    Updated: 2024/01/26 08:42:02 by nle-roux         ###   ########.fr        #
+#    Updated: 2024/01/28 11:05:37 by nle-roux         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,14 +16,19 @@ NAME	= fdf
 INCLUDE	= includes/
 
 # -- files -- #
-SRCS_DIR = srcs/
+M_DIR = mandatory/
 
-SRCS	= 	main.c utils_data.c utils_file.c \
-			ft_manage_error.c hooks.c \
-			mouse_controls.c ft_check_map.c \
-			ft_display.c bresenham.c\
+SRCS	= 	main.c \
+			data_utilities.c \
+			file_utilities.c \
+			display_utilities.c \
+			ft_manage_error.c \
+			hooks.c \
+			mouse_controls.c \
+			ft_check_map.c \
+			bresenham.c \
 
-FILES	= $(addprefix $(SRCS_DIR), $(SRCS))
+FILES	= $(addprefix $(M_DIR), $(SRCS))
 
 OBJS	= $(FILES:.c=.o)
 # --rules -- #
